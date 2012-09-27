@@ -1,3 +1,4 @@
+#form model
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
@@ -20,10 +21,12 @@ class RegistrationForm(ModelForm):
 			return username
 		raise forms.ValidationError("That username is already taken please select another.")
 
-	def clean_password(self):
-		password = self.cleaned_data['password']
-		password1 = self.cleaned_data['password']
-		if password != password1:
+	def clean(self):
+		if self.cleaned_data['password'] != self.cleaned_data['password']:
 			raise forms.ValidationError("the passwords did not match,please try again.")
-		return password
+		return self.cleaned_data
+
+class LoginForm(forms.Form):
+	username = forms.CharField(label=(u'User Name'))
+	password = forms.CharField(label=(u'Password'),widget=forms.PasswordInput(render_value=False))
 

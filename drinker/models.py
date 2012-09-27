@@ -12,6 +12,6 @@ class Drinker(models.Model):
 		return self.name
 
 #create user object to attach to our drinker object
-def create_drinker_user_callback(sender,instance,**kwargs):
-	drinker,new = Drinker.objects.get_or_create(user=instance)
-post_save.connect(create_drinker_user_callback,User)	
+#def create_drinker_user_callback(sender,instance,**kwargs):
+#	drinker,new = Drinker.objects.get_or_create(user=instance)
+#post_save.connect(create_drinker_user_callback,User)	
