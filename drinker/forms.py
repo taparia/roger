@@ -22,7 +22,7 @@ class RegistrationForm(ModelForm):
 		raise forms.ValidationError("That username is already taken please select another.")
 
 	def clean(self):
-		if self.cleaned_data['password'] != self.cleaned_data['password']:
+		if self.cleaned_data['password'] != self.cleaned_data['password1']:
 			raise forms.ValidationError("the passwords did not match,please try again.")
 		return self.cleaned_data
 

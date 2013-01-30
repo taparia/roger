@@ -50,4 +50,9 @@ def LoginRequest(request):
 
 def LogoutRequest(request):
 	logout(request)
-	return HttpResponseRedirect('/')		
+	return HttpResponseRedirect('/')	
+def profile(request):
+	drinkers=Drinker.objects.all()
+	users=User.objects.all()
+	context={'drinkers':drinkers,'users':users}
+	return render_to_response('profile.html',context,context_instance=RequestContext(request))
