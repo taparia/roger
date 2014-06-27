@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
      url(r'^admin/', include(admin.site.urls)),
 	(r'^tinymce/',include('tinymce.urls')),
+	(r'^upload/',include('fileupload.urls')),
 	(r'^$','pages.views.MainHomePage'),
 	(r'^$',direct_to_template,{'template':'index.html'}),
 	(r'^profile/$','drinker.views.profile'),
