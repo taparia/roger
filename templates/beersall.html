@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content%}
-	<div id="beerslist">
-	<img src="/static/images/bg.jpg" />
-		{% for beer in beers %}
-		<p><a href="/beers/{{beer.slug}}"/>{{ beer }}</a></p>
-		{% endfor %}
-	</div>
-{% endblock %}

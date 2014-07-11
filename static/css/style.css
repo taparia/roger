@@ -17,3 +17,76 @@ body {
 .preview img {
     max-height:50px;
 }
+.spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px; /* half width of the spinner gif */
+    margin-top: -50px; /* half height of the spinner gif */
+    text-align:center;
+    z-index:1234;
+    overflow: auto;
+    width: 100px; /* width of the spinner gif */
+    height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
+}
+/*/.content {width:800px; margin:0 auto; padding-top:50px;}/*/
+/* STOP ANIMATION */
+
+.stop {
+	-webkit-animation-play-state:paused;
+	-moz-animation-play-state:paused;
+}
+
+/* Loading Circle */
+.ball {
+	background-color: rgba(0,0,0,0);
+	border:5px solid rgba(0,183,229,0.9);
+	opacity:.9;
+	border-top:5px solid rgba(0,0,0,0);
+	border-left:5px solid rgba(0,0,0,0);
+	border-radius:50px;
+	box-shadow: 0 0 35px #2187e7;
+	width:50px;
+	height:50px;
+	margin:0 auto;
+	-moz-animation:spin .5s infinite linear;
+	-webkit-animation:spin .5s infinite linear;
+}
+
+.ball1 {
+	background-color: rgba(0,0,0,0);
+	border:5px solid rgba(0,183,229,0.9);
+	opacity:.9;
+	border-top:5px solid rgba(0,0,0,0);
+	border-left:5px solid rgba(0,0,0,0);
+	border-radius:50px;
+	box-shadow: 0 0 15px #2187e7; 
+	width:30px;
+	height:30px;
+	margin:0 auto;
+	position:relative;
+	top:-40px;
+	-moz-animation:spinoff .5s infinite linear;
+	-webkit-animation:spinoff .5s infinite linear;
+}
+
+@-moz-keyframes spin {
+	0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(360deg); }
+}
+@-moz-keyframes spinoff {
+	0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(-360deg); }
+}
+@-webkit-keyframes spin {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(360deg); }
+}
+@-webkit-keyframes spinoff {
+	0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(-360deg); }
+}
+.error
+{
+	background-color:#f2dede;
+}

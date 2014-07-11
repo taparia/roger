@@ -1,3 +1,15 @@
-"LEARNING GIT"
-"Test Code"
-"Try to fetch & pull"
+Run command - python manage.py runserver (specify the port if necessary, default port is 8000)
+Go to 127.0.0.1:8000/upload/basic
+Go to 127.0.0.1:8000/admin - Login using username - priyanshu and password "password" for access to the admin interface
+
+templates folder contains the django template files 
+
+Details regarding the fileupload app:
+views.py - definition for uploading the file(list) and rendering the file for download(result) after running all the subprocesses
+models.py - class for storing the uploaded file  in the database, for details regarding the database, go to settings.py
+test.py - definitions for all the subprocesses
+nagios_summary.py - parser for nagios status.dat file to get host name and state 
+server_info.py - parser for nagios status.dat file to get info to be written to an xls file 
+
+
+

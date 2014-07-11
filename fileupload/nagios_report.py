@@ -1,4 +1,4 @@
-from nagios_summary import *
+from server_info import *
 #import nagios_summary
 def process_info():
 # Print the HTTP header info
@@ -7,7 +7,7 @@ def process_info():
 
 # Now print the actual data
     try:
-       for timer in range(1,1500,10):
+       for timer in range(1,500,25):
             t = Timer(timer, pretty_print_status)
 	    t.start()
 	    print "Ok I am done"

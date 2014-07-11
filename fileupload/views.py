@@ -1,4 +1,7 @@
 # encoding: utf-8
+"""@author Priyanshu Taparia"""
+
+from __future__ import division
 import json
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -13,18 +16,35 @@ from .response import JSONResponse, response_mimetype
 from .serialize import serialize
 import nagios_summary
 import nagios_report
-import p4j
+#import p4j
+import test
+import datetime
 
+h = datetime.datetime.now()
+
+"""View for file upload/form submit page"""
 def list(request):
     # Handle file upload
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             newdoc = Document(docfile = request.FILES['docfile'])
+	    print type(newdoc)
             newdoc.save()
-	    b = p4j.split()
+	    b = test.split()
 	    print "Value of b is", b
-
+            documents = Document.objects.all()
+	    print type(documents)
+	    from  mimetypes import MimeTypes
+            import urllib 
+            mime = MimeTypes()
+	    url = urllib.pathname2url('/home/priyanshu/git/roger/media/upload.csv')
+	    mime_type = mime.guess_type(url)
+	    print "Mime type is", mime_type
+	    import datetime
+	    global h
+	    h = datetime.datetime.now()
+	    print h
 #	    c = p4j.sentiment()
 #	    print "Value of c is", c
 	    # Redirect to the document list after POST
@@ -48,70 +68,34 @@ def list(request):
         context_instance=RequestContext(request)
 	    )
 
+"""View for final output after analysis"""
+
 def result(request):
     # Handle result 
    d = nagios_report.process_info()
    print "Oh no"
-   c = p4j.sentiment()
-   print "Value of c is", c
-   e = p4j.merge()
+   k = test.tsentiment()
+   print "Value of k is", k
+   k = (k/6)*100
+   print k
+   processes1 = k
+   processes2 = 100 - k
+   e = test.merge()
    print "Value of e is", e
-   
+   documents = Document.objects.all()
+   import datetime
+   a = nagios_summary.pretty_print_status()
+   host = a[0]
+   state = a[1]
+   command  = zip(host, state) 
+   f = datetime.datetime.now()
+   print "F is ", f
+   print "H is", h
+   g = f - h
+   time = g.seconds
    return render_to_response(
-      'fileupload/sentiment_output.html',
+      'fileupload/sentiment_output.html',{'command':command, 'time':time, 'documents': documents, 'processes1' : processes1, 'processes2' : processes2 },
         context_instance=RequestContext(request)
 	    )
-
-class PictureCreateView(CreateView):
-    model = Picture
-
-    def form_valid(self, form):
-        self.object = form.save()
-        files = [serialize(self.object)]
-        data = {'files': files}
-        response = JSONResponse(data, mimetype=response_mimetype(self.request))
-        response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
-
-    def form_invalid(self, form):
-        data = json.dumps(form.errors)
-        return HttpResponse(content=data, status=400, content_type='application/json')
-
-class BasicVersionCreateView(PictureCreateView):
-    template_name_suffix = '_basic_form'
-
-
-class BasicPlusVersionCreateView(PictureCreateView):
-    template_name_suffix = '_basicplus_form'
-
-
-class AngularVersionCreateView(PictureCreateView):
-    template_name_suffix = '_angular_form'
-
-
-class jQueryVersionCreateView(PictureCreateView):
-    template_name_suffix = '_jquery_form'
-
-
-class PictureDeleteView(DeleteView):
-    model = Picture
-
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.delete()
-        response = JSONResponse(True, mimetype=response_mimetype(request))
-        response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
-
-
-class PictureListView(ListView):
-    model = Picture
-
-    def render_to_response(self, context, **response_kwargs):
-        files = [ serialize(p) for p in self.get_queryset() ]
-        data = {'files': files}
-        response = JSONResponse(data, mimetype=response_mimetype(self.request))
-        response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
 
 

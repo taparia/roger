@@ -1,6 +1,6 @@
 # encoding: utf-8
 from django.db import models
-
+"""@author Priyanshu Taparia"""
 
 class Picture(models.Model):
     """This is a small demo using just two fields. The slug field is really not
@@ -28,7 +28,10 @@ class Picture(models.Model):
         self.file.delete(False)
         super(Picture, self).delete(*args, **kwargs)
 
+"""Model for file upload"""
 class Document(models.Model):
 #    docfile = models.FileField(upload_to='documents/%Y/%m/%d')
     docfile = models.FileField(upload_to='documents')
+    def __unicode__(self):
+        return self.docfile.name
 
